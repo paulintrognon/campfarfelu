@@ -9,6 +9,7 @@
   "license": "ISC",
   "scripts": {
     "pwa:type-check": "cd pwa && yarn type-check",
+    "admin:type-check": "cd admin && yarn type-check",
     "lint": "eslint --ext js,ts,tsx --fix"
   },
   "husky": {

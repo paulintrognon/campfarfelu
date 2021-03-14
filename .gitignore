@@ -27,3 +27,12 @@ yarn-error.log*
 /pwa/build
 /pwa/out
 /pwa/coverage
+
+###
+# Admin
+###
+
+/admin/.next
+/admin/build
+/admin/out
+/admin/coverage
