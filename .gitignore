@@ -1,14 +1,9 @@
 # dependencies
 node_modules
 
-# testing
-/coverage
-
-# production
-/build
-
 # config
 .env
+.env.*
 
 # misc
 .DS_Store
@@ -18,21 +13,3 @@ api.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
-
-###
-# PWA
-###
-
-/pwa/.next
-/pwa/build
-/pwa/out
-/pwa/coverage
-
-###
-# Admin
-###
-
-/admin/.next
-/admin/build
-/admin/out
-/admin/coverage

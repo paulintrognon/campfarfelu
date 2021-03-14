@@ -8,8 +8,10 @@
   },
   "license": "ISC",
   "scripts": {
-    "pwa:type-check": "cd pwa && yarn type-check",
-    "admin:type-check": "cd admin && yarn type-check",
+    "type-check": "yarn type-check:api && yarn type-check:bo && yarn type-check:front",
+    "type-check:api": "cd api && yarn type-check",
+    "type-check:bo": "cd bo && yarn type-check",
+    "type-check:front": "cd front && yarn type-check",
     "lint": "eslint --ext js,ts,tsx --fix"
   },
   "husky": {
@@ -22,15 +24,12 @@
     "@typescript-eslint/parser": "^4.14.0",
     "eslint": "^7.18.0",
     "eslint-config-prettier": "^7.2.0",
-    "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.22.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "husky": "^4.3.8",
     "lint-staged": "^10.5.3",
-    "prettier": "^2.2.1"
-  },
-  "dependencies": {
+    "prettier": "^2.2.1",
     "typescript": "^4.1.3"
   }
 }
