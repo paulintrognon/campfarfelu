@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+    api:
+        container_name: campfarfelu-api
+        build:
+            context: .
+            dockerfile: Dockerfile
+        image: campfarfelu/campfarfelu-api
+        ports:
+            - ${API_PORT:-3000}:3000
+        links:
+            - mariadb
+        environment:
+            TYPEORM_CONNECTION: ${TYPEORM_CONNECTION}
+            TYPEORM_HOST: mariadb
+            TYPEORM_USERNAME: ${TYPEORM_USERNAME}
+            TYPEORM_PASSWORD: ${TYPEORM_PASSWORD}
+            TYPEORM_DATABASE: ${TYPEORM_DATABASE}
+            TYPEORM_PORT: ${TYPEORM_PORT}
+            TYPEORM_SYNCHRONIZE: ${TYPEORM_SYNCHRONIZE}
+            TYPEORM_LOGGING: ${TYPEORM_LOGGING}
+            TYPEORM_ENTITIES: ${TYPEORM_ENTITIES}
