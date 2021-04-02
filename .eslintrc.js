@@ -11,15 +11,44 @@ module.exports = {
   // We want to lint .prettierrc.js (ignored by default by eslint)
   ignorePatterns: ['!.prettierrc.js'],
 
+  plugins: ['eslint-plugin-import', '@typescript-eslint', 'prettier'],
+
   // We extends eslint recommended rules
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:import/typescript',
     'plugin:prettier/recommended',
   ],
 
-  // Enforce prettier rules
   rules: {
+    // Import order rules
+    'import/order': [
+      'error',
+      {
+        groups: ['builtin', 'external', 'internal'],
+        pathGroups: [
+          {
+            pattern: 'react',
+            group: 'external',
+            position: 'before',
+          },
+          {
+            pattern: 'next/**',
+            group: 'external',
+            position: 'before',
+          },
+        ],
+        pathGroupsExcludedImportTypes: ['react'],
+        'newlines-between': 'always',
+        alphabetize: {
+          order: 'asc',
+          caseInsensitive: true,
+        },
+      },
+    ],
+
+    // Enforce prettier rules
     'prettier/prettier': ['error', {}, { usePrettierrc: true }],
   },
 
@@ -31,8 +60,8 @@ module.exports = {
       files: ['**/*.ts'],
       parser: '@typescript-eslint/parser',
       rules: {
-        // Why would you want unused vars?
-        '@typescript-eslint/no-unused-vars': ['error'],
+        // No unused variables
+        '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true }],
 
         // We require return types on functions only where really useful
         '@typescript-eslint/explicit-function-return-type': [
