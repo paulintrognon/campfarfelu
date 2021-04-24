@@ -1,19 +1,35 @@
-import { Test, TestingModule } from '@nestjs/testing'
-
+import { PrismaService } from '../prisma.service'
 import { UsersService } from './users.service'
+import { User, UserRole } from '.prisma/client'
 
 describe('UsersService', () => {
-  let service: UsersService
+  let usersService: UsersService
 
-  beforeEach(async () => {
-    const module: TestingModule = await Test.createTestingModule({
-      providers: [UsersService],
-    }).compile()
-
-    service = module.get<UsersService>(UsersService)
+  beforeEach(() => {
+    usersService = new UsersService(new PrismaService())
   })
 
-  it('should be defined', () => {
-    expect(service).toBeDefined()
+  /**
+   * validateUser Suite
+   */
+  describe('create', () => {
+    it('should create and return the user', async () => {
+      const userToCreate = {
+        email: 'foo@bar.com',
+        name: 'Foo Bar',
+        role: UserRole.VISITOR,
+        password: 'password',
+      }
+      const userCreated: User = {
+        id: 1,
+        email: 'foo@bar.com',
+        name: 'Foo Bar',
+        role: UserRole.VISITOR,
+        passwordHash: 'abc123',
+      }
+      jest.spyOn(usersService.usersRepository, 'create').mockResolvedValue(userCreated)
+      const result = await usersService.create(userToCreate)
+      expect(result).toBe(userCreated)
+    })
   })
 })

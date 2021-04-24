@@ -1,17 +1,25 @@
-import { Module } from '@nestjs/common'
+import { ClassSerializerInterceptor, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
-import { TypeOrmModule } from '@nestjs/typeorm'
-import { Connection } from 'typeorm'
+import { APP_INTERCEPTOR } from '@nestjs/core'
 
 import { AppController } from './app.controller'
 import { AuthModule } from './auth/auth.module'
 import { UsersModule } from './users/users.module'
 
 @Module({
-  imports: [ConfigModule.forRoot(), TypeOrmModule.forRoot(), AuthModule, UsersModule],
+  imports: [
+    ConfigModule.forRoot({
+      envFilePath: ['.env.local', '.env'],
+    }),
+    AuthModule,
+    UsersModule,
+  ],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: ClassSerializerInterceptor,
+    },
+  ],
   controllers: [AppController],
-  providers: [],
 })
-export class AppModule {
-  constructor(private connection: Connection) {}
-}
+export class AppModule {}
