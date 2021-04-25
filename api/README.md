@@ -9,7 +9,12 @@ yarn install
 
 Start DB:
 ```bash
-docker-compose -f docker-compose.db.yml up
+docker-compose up
+```
+
+Run seeds:
+```bash
+yarn db:seed
 ```
 
 Start dev server:
@@ -17,9 +22,16 @@ Start dev server:
 yarn dev
 ```
 
+## Tests
+
+Run unit tests:
+```yarn
+yarn test
+```
+
 ## Production
 
 Start whole stack:
 ```bash
-docker-compose -f docker-compose.db.yml -f docker-compose.api.yml up --build
+docker-compose -f docker-compose.yml -f docker-compose.api.yml up --build
 ```
