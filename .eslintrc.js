@@ -11,7 +11,7 @@ module.exports = {
   // We want to lint .prettierrc.js (ignored by default by eslint)
   ignorePatterns: ['!.prettierrc.js'],
 
-  plugins: ['eslint-plugin-import', '@typescript-eslint', 'prettier'],
+  plugins: ['eslint-plugin-import', 'jsdoc', '@typescript-eslint', 'prettier'],
 
   // We extends eslint recommended rules
   extends: [
@@ -22,6 +22,15 @@ module.exports = {
   ],
 
   rules: {
+    'jsdoc/require-jsdoc': [
+      'error',
+      {
+        enableFixer: false,
+        checkConstructors: false,
+        require: { FunctionDeclaration: true, MethodDefinition: true },
+      },
+    ],
+
     // Import order rules
     'import/order': [
       'error',

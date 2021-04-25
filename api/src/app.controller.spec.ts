@@ -16,7 +16,7 @@ describe('AppController', () => {
 
   describe('root', () => {
     it('should return "Hello World!"', () => {
-      expect(appController.ping()).toBe('Hello')
+      expect(appController.ping()).toBe('Hello world!')
     })
   })
 })

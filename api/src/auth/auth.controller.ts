@@ -1,7 +1,8 @@
-import { Controller, Post, Req, UseGuards } from '@nestjs/common'
+import { Controller, Get, Post, Req, UseGuards } from '@nestjs/common'
 
 import { AuthService } from './auth.service'
-import { AccessTokenType, RequestContainingUser } from './auth.types'
+import { AccessTokenType, RequestContainingUser, UserSessionType } from './auth.types'
+import { JwtAuthGuard } from './jwt-auth.guard'
 import { LocalAuthGuard } from './local-auth.guard'
 
 @Controller('auth')
@@ -10,11 +11,21 @@ export class AuthController {
 
   /**
    * POST /auth/login
-   * Authenticates a user.
+   * Authenticates a user
    */
   @Post('login')
   @UseGuards(LocalAuthGuard)
   async login(@Req() req: RequestContainingUser): Promise<AccessTokenType> {
     return this.authService.login(req.user)
+  }
+
+  /**
+   * GET /auth/me
+   * Return current Authenticated user
+   */
+  @Get('/me')
+  @UseGuards(JwtAuthGuard)
+  async me(@Req() req: RequestContainingUser): Promise<UserSessionType> {
+    return req.user
   }
 }
