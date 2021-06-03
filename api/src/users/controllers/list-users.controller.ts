@@ -1,4 +1,5 @@
 import { Controller, Get, UseGuards } from '@nestjs/common'
+import { ApiTags } from '@nestjs/swagger'
 
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard'
 import { Roles } from '../../auth/roles.decorator'
@@ -8,15 +9,12 @@ import { User, UserRole } from '.prisma/client'
 
 type ResponseType = Omit<User, 'passwordHash'>[]
 
+@ApiTags('users')
 @Controller('users')
 export class ListUsersController {
   constructor(private usersService: UsersService) {}
 
-  /**
-   * GET /users
-   * List all users
-   */
-  @Get()
+  @Get('users')
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Roles(UserRole.ADMIN)
   async list(): Promise<ResponseType> {
